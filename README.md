@@ -9,10 +9,16 @@ The available YCSB adapters are:
 - GAE Datastore with low-level API
 - GAE Datastore with Kundera and Kundea-gae-datastore extension
 
+The code for the Kundera extensions are available on GitHub:
 
-To start the test:
+- [Azure Table extension](https://github.com/Arci/kundera-azure-table)
+- [GAE Datastore extension](https://github.com/Arci/kundera-gae-datastore)
 
-Install kundera-benchmark with maven:
+you need to download them and install them locally through maven install.
+
+Since YCSB is not available in any maven repository, you have to [download](https://github.com/brianfrankcooper/YCSB/) it and install it locally through maven install.
+
+Now all the required dependency for kundera-benchmark should be resolved so is possible to install it with maven:
 
 ```
 mvn clean install
