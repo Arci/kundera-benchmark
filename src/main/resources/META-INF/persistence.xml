@@ -11,7 +11,7 @@
             <property name="kundera.nodes" value="localhost"/>
             <property name="kundera.port" value="8888"/>
             <property name="kundera.username" value="username"/>
-            <property name="kundera.password" value="password does not matter"/>
+            <property name="kundera.password" value="does-not-matter-on-localhost"/>
             <property name="kundera.ddl.auto.prepare" value="create"/>
             <property name="kundera.client.lookup.class"
                       value="it.polimi.kundera.client.datastore.DatastoreClientFactory"/>

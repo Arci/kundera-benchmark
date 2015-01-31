@@ -50,7 +50,6 @@ public class AzureTableClient extends DB {
         if (useEmulator != null && useEmulator.equalsIgnoreCase("true")) {
             return "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://127.0.0.1";
         }
-
         return "DefaultEndpointsProtocol=" + protocol + ";AccountName=" + accountName + ";AccountKey=" + accountKey;
     }
 

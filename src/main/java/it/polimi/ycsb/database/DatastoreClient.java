@@ -39,12 +39,12 @@ public class DatastoreClient extends DB {
             RemoteApiOptions options = new RemoteApiOptions().server(url, port).credentials(username, password);
             this.installer = new RemoteApiInstaller();
             this.installer.install(options);
+
+            DatastoreServiceConfig config = DatastoreServiceConfig.Builder.withDefaults();
+            datastore = DatastoreServiceFactory.getDatastoreService(config);
         } catch (Exception e) {
             throw new DBException(e);
         }
-
-        DatastoreServiceConfig config = DatastoreServiceConfig.Builder.withDefaults();
-        datastore = DatastoreServiceFactory.getDatastoreService(config);
     }
 
     public void cleanup() throws DBException {
