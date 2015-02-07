@@ -25,7 +25,7 @@ public class KunderaDatastoreClient extends DB {
 
     private static final int OK = 0;
     private static final int ERROR = -1;
-    public static final int MAX_ENTITIES = 5000;
+    public static final int MAX_ENTITIES = 1;
     private static final String PU = "kundera_datastore_pu";
     private static EntityManagerFactory emf;
     private EntityManager em;

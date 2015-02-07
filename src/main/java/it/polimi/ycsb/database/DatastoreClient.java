@@ -32,7 +32,11 @@ public class DatastoreClient extends DB {
         random = new SecureRandom();
         try {
             String url = getProperties().getProperty("url");
-            int port = Integer.valueOf(getProperties().getProperty("port"));
+            String stringPort = getProperties().getProperty("port");
+            int port = 443;
+            if (stringPort != null) {
+                port = Integer.valueOf(stringPort);
+            }
             String username = getProperties().getProperty("username");
             String password = getProperties().getProperty("password");
 

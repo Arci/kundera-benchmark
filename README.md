@@ -63,19 +63,19 @@ Available adapter classes are:
 Property files must provide information to locate the database to test.
 
 ####GAE Datastore
-The required properties are:
+The available properties are:
 
-- `url`
-- `port`
-- `username`
-- `password` (can be blank if tests are against localhost)
+- `url` _required_
+- `port` _optional_ default is __443__
+- `username`  _required_ the username of an admin on the remote application
+- `password` _required_ can be omitted if tests are against localhost
 
 ####Azure Table
-The required properties are:
+The available properties are:
 
 - `emulator` [true|false]
-- `account.name` from azure portal
-- `account.key` from azure portal
-- `protocol` [http|https]
+- `account.name` _required_ if not using emulator (available from azure portal)
+- `account.key` _required_ if not using emulator (available from azure portal)
+- `protocol` [http|https] _optional_ default is __https__
 
 if `emulator` is set to `true` the remaining properties are ignored.

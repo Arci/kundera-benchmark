@@ -43,12 +43,15 @@ public class AzureTableClient extends DB {
 
     private String buildConnectionString(Properties properties) {
         String useEmulator = properties.getProperty("emulator");
+        if (useEmulator != null && useEmulator.equalsIgnoreCase("true")) {
+            return "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://127.0.0.1";
+        }
+
         String accountName = properties.getProperty("account.name");
         String accountKey = properties.getProperty("account.key");
         String protocol = properties.getProperty("protocol");
-
-        if (useEmulator != null && useEmulator.equalsIgnoreCase("true")) {
-            return "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://127.0.0.1";
+        if (protocol == null || protocol.isEmpty()) {
+            protocol = "https";
         }
         return "DefaultEndpointsProtocol=" + protocol + ";AccountName=" + accountName + ";AccountKey=" + accountKey;
     }
