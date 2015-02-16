@@ -98,7 +98,6 @@ public class DatastoreClient extends DB {
             //for (Map.Entry<String, ByteIterator> entry : values.entrySet()) {
             //    gaeEntity.setProperty(entry.getKey(), entry.getValue().toArray());
             //}
-            gaeEntity.setProperty("USER_ID", key);
             gaeEntity.setProperty("NAME", nextString());
             gaeEntity.setProperty("SURNAME", nextString());
             gaeEntity.setProperty("AGE", nextString());

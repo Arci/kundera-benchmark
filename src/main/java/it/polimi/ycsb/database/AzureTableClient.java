@@ -101,7 +101,6 @@ public class AzureTableClient extends DB {
             // for (Map.Entry<String, ByteIterator> entry : values.entrySet()) {
             //    tableEntity.setProperty(entry.getKey(), new EntityProperty(entry.getValue().toArray()));
             // }
-            tableEntity.setProperty("USER_ID", new EntityProperty(key));
             tableEntity.setProperty("NAME", nextString());
             tableEntity.setProperty("SURNAME", nextString());
             tableEntity.setProperty("AGE", nextString());
