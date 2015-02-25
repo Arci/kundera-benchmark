@@ -38,9 +38,9 @@ this will create a directory called `dependency` in the `target` directory conta
 To lunch the YCSB benchmark for the low-level API version use:
 
 ```
-java -cp kundera-benchmark-jar-location:path-to-dependency-folder/*
-com.yahoo.ycsb.Client -t -db database-adapter-class-to-use
--P path-to-workload
+java -cp KUNDERA-BENCHMARK-JAR-LOCATION:PATH-TO-DEPENDENCY-FOLDER/*
+com.yahoo.ycsb.Client -t -db DATABASE-ADAPTER-CLASS-TO-USE
+-P PATH-TO-WORKLOAD
 ```
 
 Available adapter classes are:
@@ -51,18 +51,19 @@ Available adapter classes are:
 To lunch the YCSB benchmark for the Kundera client version you also need to specify the property file location:
 
 ```
-java -cp kundera-benchmark-jar-location:path-to-dependency-folder/*
-com.yahoo.ycsb.Client -t -db database-adapter-class-to-use
--P path-to-workload
--P path-to-property-file
+java -cp KUNDERA-BENCHMARK-JAR-LOCATION:PATH-TO-DEPENDENCY-FOLDER/*
+com.yahoo.ycsb.Client -t -db DATABASE-ADAPTER-CLASS-TO-USE
+-P PATH-TO-WORKLOAD
+-P PATH-TO-PROPERTY-FILE
 ```
 Available adapter classes are:
 
 - `it.polimi.ycsb.database.KunderaAzureTableClient` for  kundera-azure-table extension
-- `it.polimi.ycsb.database.DatastoreClient` for kundera-gae-datastore extension
+- `it.polimi.ycsb.database.KunderaDatastoreClient` for kundera-gae-datastore extension
+- `it.polimi.ycsb.database.KunderaHBaseClient` for kundera-gae-datastore extension
 
 ##Property Files
-Property files must provide information to locate the database to test.
+Property files must provide information to locate the database to test when running the benchmarks on the low-level API versions.
 
 ####GAE Datastore
 The available properties are:
