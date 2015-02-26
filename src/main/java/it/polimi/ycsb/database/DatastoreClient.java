@@ -26,10 +26,12 @@ public class DatastoreClient extends DB {
     private static final int ERROR = -1;
     private RemoteApiInstaller installer;
     private DatastoreService datastore;
-    private SecureRandom random;
+    private SecureRandom random = new SecureRandom();
 
+    /**
+     * Initialize any state for this DB. Called once per DB instance; there is one DB instance per client thread.
+     */
     public void init() throws DBException {
-        random = new SecureRandom();
         try {
             String url = getProperties().getProperty("url");
             String stringPort = getProperties().getProperty("port");
@@ -51,6 +53,9 @@ public class DatastoreClient extends DB {
         }
     }
 
+    /**
+     * Cleanup any state for this DB. Called once per DB instance; there is one DB instance per client thread.
+     */
     public void cleanup() throws DBException {
         if (installer != null) {
             installer.uninstall();

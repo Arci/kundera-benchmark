@@ -12,7 +12,7 @@
 			<property name="kundera.port" value="8080"/>
 			<property name="kundera.username" value="username"/>
 			<property name="kundera.password" value="does-not-matter-on-localhost"/>
-			<property name="kundera.ddl.auto.prepare" value="create"/>
+			<property name="kundera.ddl.auto.prepare" value="create-drop"/>
 			<property name="kundera.client.lookup.class"
 					  value="it.polimi.kundera.client.datastore.DatastoreClientFactory"/>
 		</properties>
@@ -33,12 +33,16 @@
 	<persistence-unit name="kundera_hbase_pu">
 		<provider>com.impetus.kundera.KunderaPersistence</provider>
 		<properties>
+			<property name="kundera.keyspace" value="kundera"/>
 			<property name="kundera.nodes" value="localhost"/>
 			<property name="kundera.port" value="2181"/>
-			<property name="kundera.keyspace" value="kundera"/>
+			<!--
+			<property name="kundera.nodes" value="localhost"/>
+			<property name="kundera.port" value="8182"/>
+			-->
 			<property name="kundera.dialect" value="hbase"/>
 			<property name="kundera.client.lookup.class" value="com.impetus.client.hbase.HBaseClientFactory"/>
-			<property name="kundera.ddl.auto.prepare" value="update"/>
+			<property name="kundera.ddl.auto.prepare" value="create-drop"/>
 		</properties>
 	</persistence-unit>
 

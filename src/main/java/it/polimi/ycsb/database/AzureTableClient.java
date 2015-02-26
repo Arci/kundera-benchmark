@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.HashMap;
-import java.util.Properties;
 import java.util.Set;
 import java.util.Vector;
 
@@ -26,14 +25,29 @@ public class AzureTableClient extends DB {
     private static final int OK = 0;
     private static final int ERROR = -1;
     private CloudTableClient tableClient;
-    private SecureRandom random;
+    private SecureRandom random = new SecureRandom();
 
+    /**
+     * Initialize any state for this DB. Called once per DB instance; there is one DB instance per client thread.
+     */
     public void init() throws DBException {
-        random = new SecureRandom();
         try {
-            String storageConnectionString = buildConnectionString(getProperties());
-            tableClient = CloudStorageAccount.parse(storageConnectionString).createCloudTableClient();
+            String storageConnectionString;
+            String useEmulator = getProperties().getProperty("emulator");
+            if (useEmulator != null && useEmulator.equalsIgnoreCase("true")) {
+                storageConnectionString = "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://127.0.0.1";
+            } else {
 
+                String accountName = getProperties().getProperty("account.name");
+                String accountKey = getProperties().getProperty("account.key");
+                String protocol = getProperties().getProperty("protocol");
+                if (protocol == null || protocol.isEmpty()) {
+                    protocol = "https";
+                }
+                storageConnectionString = "DefaultEndpointsProtocol=" + protocol + ";AccountName=" + accountName + ";AccountKey=" + accountKey;
+            }
+
+            tableClient = CloudStorageAccount.parse(storageConnectionString).createCloudTableClient();
             CloudTable table = tableClient.getTableReference("usertable");
             table.createIfNotExist();
         } catch (Exception e) {
@@ -41,21 +55,9 @@ public class AzureTableClient extends DB {
         }
     }
 
-    private String buildConnectionString(Properties properties) {
-        String useEmulator = properties.getProperty("emulator");
-        if (useEmulator != null && useEmulator.equalsIgnoreCase("true")) {
-            return "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://127.0.0.1";
-        }
-
-        String accountName = properties.getProperty("account.name");
-        String accountKey = properties.getProperty("account.key");
-        String protocol = properties.getProperty("protocol");
-        if (protocol == null || protocol.isEmpty()) {
-            protocol = "https";
-        }
-        return "DefaultEndpointsProtocol=" + protocol + ";AccountName=" + accountName + ";AccountKey=" + accountKey;
-    }
-
+    /**
+     * Cleanup any state for this DB. Called once per DB instance; there is one DB instance per client thread.
+     */
     public void cleanup() throws DBException {
         tableClient = null;
     }

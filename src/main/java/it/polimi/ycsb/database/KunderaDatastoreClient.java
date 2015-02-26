@@ -26,21 +26,23 @@ public class KunderaDatastoreClient extends DB {
     private static final int OK = 0;
     private static final int ERROR = -1;
     public static final int MAX_ENTITIES = 1;
-    private static final String PU = "kundera_datastore_pu";
-    private static EntityManagerFactory emf;
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("kundera_datastore_pu");
+    private SecureRandom random = new SecureRandom();
     private EntityManager em;
-    private SecureRandom random;
     private int entities;
 
+    /**
+     * Initialize any state for this DB. Called once per DB instance; there is one DB instance per client thread.
+     */
     public void init() throws DBException {
-        emf = Persistence.createEntityManagerFactory(PU);
         em = emf.createEntityManager();
-        random = new SecureRandom();
         entities = 1;
     }
 
+    /**
+     * Cleanup any state for this DB. Called once per DB instance; there is one DB instance per client thread.
+     */
     public void cleanup() throws DBException {
-        em.clear();
         em.close();
     }
 
