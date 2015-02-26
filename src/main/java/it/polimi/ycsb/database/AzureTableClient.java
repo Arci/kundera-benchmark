@@ -126,7 +126,9 @@ public class AzureTableClient extends DB {
             return ERROR;
         }
         try {
-            TableOperation deleteOperation = TableOperation.delete(new DynamicEntity(table, key));
+            DynamicEntity dynamicEntity = new DynamicEntity(table, key);
+            dynamicEntity.setEtag("*");
+            TableOperation deleteOperation = TableOperation.delete(dynamicEntity);
             tableClient.execute(table, deleteOperation);
             return OK;
         } catch (Exception e) {
