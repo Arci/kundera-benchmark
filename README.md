@@ -58,6 +58,7 @@ Available adapter classes are:
 
 - `it.polimi.ycsb.database.AzureTableClient` for Azure Table
 - `it.polimi.ycsb.database.DatastoreClient` for GAE Datastore
+- `it.polimi.ycsb.database.HBaseClient` for Hbase
 
 ###Kundera client version
 Those benchmarks are executed similarly to the low-level API version with the only difference that you also need to specify the property file location:
@@ -96,3 +97,9 @@ The available properties are:
 - `protocol` [http|https] _optional_ default is __https__
 
 if `emulator` is set to `true` the remaining properties are ignored.
+
+###Hbase
+The available properties are:
+
+- `url` _required_ the value for `hbase.zookeeper.quorum`
+- `port` _required_ the value for `hbase.zookeeper.property.clientPort`
