@@ -65,7 +65,8 @@ Those benchmarks are executed similarly to the low-level API version with the on
 ```
 java -cp KUNDERA-BENCHMARK-JAR-LOCATION:PATH-TO-DEPENDENCY-FOLDER/*
 com.yahoo.ycsb.Client -t -db DATABASE-ADAPTER-CLASS-TO-USE
--P PATH-TO-WORKLOAD -P PATH-TO-PROPERTY-FILE -s -threads NUMBER-OF-THREAD-TO-USE -PHASE > OUTPUT_FILE
+-P PATH-TO-WORKLOAD -P PATH-TO-PROPERTY-FILE
+-s -threads NUMBER-OF-THREAD-TO-USE -PHASE > OUTPUT_FILE
 ```
 where `PHASE` should be `load` for __load__ phase or `t` for __transaction__ phase.
 
@@ -78,7 +79,7 @@ Available adapter classes are:
 ##Property Files
 Property files must provide information to locate the database to test when running the benchmarks on the low-level API versions.
 
-####GAE Datastore
+###GAE Datastore
 The available properties are:
 
 - `url` _required_
@@ -86,7 +87,7 @@ The available properties are:
 - `username`  _required_ the username of an admin on the remote application
 - `password` _required_ can be omitted if tests are against localhost
 
-####Azure Table
+###Azure Table
 The available properties are:
 
 - `emulator` [true|false]
