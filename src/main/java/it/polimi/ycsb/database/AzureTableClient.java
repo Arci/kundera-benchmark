@@ -1,7 +1,10 @@
 package it.polimi.ycsb.database;
 
 import com.microsoft.windowsazure.services.core.storage.CloudStorageAccount;
-import com.microsoft.windowsazure.services.table.client.*;
+import com.microsoft.windowsazure.services.table.client.CloudTable;
+import com.microsoft.windowsazure.services.table.client.CloudTableClient;
+import com.microsoft.windowsazure.services.table.client.EntityProperty;
+import com.microsoft.windowsazure.services.table.client.TableOperation;
 import com.yahoo.ycsb.ByteIterator;
 import com.yahoo.ycsb.DB;
 import com.yahoo.ycsb.DBException;
@@ -123,14 +126,8 @@ public class AzureTableClient extends DB {
             return ERROR;
         }
         try {
-            TableQuery<DynamicEntity> query = TableQuery.from(table, DynamicEntity.class).where(TableQuery.combineFilters(
-                    TableQuery.generateFilterCondition("PartitionKey", TableQuery.QueryComparisons.EQUAL, table),
-                    TableQuery.Operators.AND,
-                    TableQuery.generateFilterCondition("RowKey", TableQuery.QueryComparisons.EQUAL, key)));
-            for (DynamicEntity entity : tableClient.execute(query)) {
-                TableOperation deleteOperation = TableOperation.delete(entity);
-                tableClient.execute(table, deleteOperation);
-            }
+            TableOperation deleteOperation = TableOperation.delete(new DynamicEntity(table, key));
+            tableClient.execute(table, deleteOperation);
             return OK;
         } catch (Exception e) {
             log.error(e.getMessage());
