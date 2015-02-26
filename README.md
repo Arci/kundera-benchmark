@@ -8,6 +8,7 @@ The available YCSB adapters are:
 - Azure Table with Kundera and Kundea-azure-table extension
 - GAE Datastore with low-level API
 - GAE Datastore with Kundera and Kundea-gae-datastore extension
+- HBase with low-level API
 - HBase with Kundera and Kundera-hbase extension
 
 ##Preliminary Operations
@@ -15,11 +16,11 @@ The code for the Kundera extensions are available on GitHub:
 
 - [Azure Table extension](https://github.com/Arci/kundera-azure-table)
 - [GAE Datastore extension](https://github.com/Arci/kundera-gae-datastore)
-- [hbase extension](https://github.com/impetus-opensource/Kundera)
+- [Hbase extension](https://github.com/impetus-opensource/Kundera)
 
-You need to download them and install the one for azure table and the one for google datastore locally through maven install since are not available iun any public maven repository.
+You need to download them and install the one for azure table and the one for google datastore locally through maven install since are not available iun any public maven repository.  
 Note that the azure table extension tests to run require a reachable storage emulator on Windows so if you do not want to execute test while build run `mvn clean install -DskipTests`.
-Test for datastore extension can be executed without any configuration as they're executed thought google in-memory Datastore stub.
+Test for datastore extension can be executed without any configuration as they're executed thought google in-memory Datastore stub.  
 Since also YCSB is not available in any maven repository, you have also to [download](https://github.com/brianfrankcooper/YCSB/) it and install it locally through maven install.
 
 Now all the required dependency for kundera-benchmark should be resolved so is possible to install it with maven:
@@ -75,7 +76,7 @@ Available adapter classes are:
 
 - `it.polimi.ycsb.database.KunderaAzureTableClient` for  kundera-azure-table extension
 - `it.polimi.ycsb.database.KunderaDatastoreClient` for kundera-gae-datastore extension
-- `it.polimi.ycsb.database.KunderaHBaseClient` for kundera-gae-datastore extension
+- `it.polimi.ycsb.database.KunderaHBaseClient` for kundera-hbase extension
 
 ##Property Files
 Property files must provide information to locate the database to test when running the benchmarks on the low-level API versions.
@@ -84,22 +85,22 @@ Property files must provide information to locate the database to test when runn
 The available properties are:
 
 - `url` _required_
-- `port` _optional_ default is __443__
-- `username`  _required_ the username of an admin on the remote application
-- `password` _required_ can be omitted if tests are against localhost
+- `port` _optional_, default is __443__
+- `username`  _required_, the username of an admin on the remote application
+- `password` _required_, can be omitted if tests are against localhost
 
 ###Azure Table
 The available properties are:
 
 - `emulator` [true|false]
-- `account.name` _required_ if not using emulator (available from azure portal)
-- `account.key` _required_ if not using emulator (available from azure portal)
-- `protocol` [http|https] _optional_ default is __https__
+- `account.name` _required_ if not using emulator, available from azure portal
+- `account.key` _required_ if not using emulator, available from azure portal
+- `protocol` [http|https] _optional_, default is __https__
 
 if `emulator` is set to `true` the remaining properties are ignored.
 
 ###Hbase
 The available properties are:
 
-- `url` _required_ the value for `hbase.zookeeper.quorum`
-- `port` _required_ the value for `hbase.zookeeper.property.clientPort`
+- `url` _required_, the value for `hbase.zookeeper.quorum`
+- `port` _required_, the value for `hbase.zookeeper.property.clientPort`
