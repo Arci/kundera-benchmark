@@ -8,18 +8,19 @@ The available YCSB adapters are:
 - Azure Table with Kundera and Kundea-azure-table extension
 - GAE Datastore with low-level API
 - GAE Datastore with Kundera and Kundea-gae-datastore extension
+- HBase with Kundera and Kundera-hbase extension
 
 ##Preliminary Operations
 The code for the Kundera extensions are available on GitHub:
 
 - [Azure Table extension](https://github.com/Arci/kundera-azure-table)
 - [GAE Datastore extension](https://github.com/Arci/kundera-gae-datastore)
+- [hbase extension](https://github.com/impetus-opensource/Kundera)
 
-you need to download them and install them locally through maven install.
-Note that the azure client tests require a reachable storage emulator on Windows so if you do not want to execute test while build run `mvn clean install -DskipTests`.
-Test for datastore extension can be executed without further configuration as they're executed thought google in-memory Datastore stub.
-
-Since YCSB is not available in any maven repository, you have also to [download](https://github.com/brianfrankcooper/YCSB/) it and install it locally through maven install.
+you need to download them and install the one for azure table and the one for google datastore locally through maven install since are not available iun any public maven repository.
+Note that the azure table extension tests to run require a reachable storage emulator on Windows so if you do not want to execute test while build run `mvn clean install -DskipTests`.
+Test for datastore extension can be executed without any configuration as they're executed thought google in-memory Datastore stub.
+Since also YCSB is not available in any maven repository, you have also to [download](https://github.com/brianfrankcooper/YCSB/) it and install it locally through maven install.
 
 Now all the required dependency for kundera-benchmark should be resolved so is possible to install it with maven:
 
@@ -35,27 +36,39 @@ mvn dependency:copy-dependencies
 this will create a directory called `dependency` in the `target` directory containing all the jars of the dependencies.
 
 ##Run the benchmarks
-To lunch the YCSB benchmark for the low-level API version use:
+Benchmarks for YCSB run in two distinct phases:
+
+- __load__ that load the data in the target database
+- __transaction__ that actually execute the workload test on the loaded data
+
+To execute the __load__ phase use the `-load` option, for the __transaction__ phase use the `-t` option.
+
+##Available datastore
+####low-level API versions
+Those benchmarks are executed through the command:
 
 ```
 java -cp KUNDERA-BENCHMARK-JAR-LOCATION:PATH-TO-DEPENDENCY-FOLDER/*
 com.yahoo.ycsb.Client -t -db DATABASE-ADAPTER-CLASS-TO-USE
--P PATH-TO-WORKLOAD
+-P PATH-TO-WORKLOAD -s -threads NUMBER-OF-THREAD-TO-USE -PHASE > OUTPUT_FILE
 ```
+where `PHASE` should be `load` for __load__ phase or `t` for __transaction__ phase.
 
 Available adapter classes are:
 
 - `it.polimi.ycsb.database.AzureTableClient` for Azure Table
 - `it.polimi.ycsb.database.DatastoreClient` for GAE Datastore
 
-To lunch the YCSB benchmark for the Kundera client version you also need to specify the property file location:
+####Kundera client version
+Those benchmarks are executed similarly to the low-level API version with the only difference that you also need to specify the property file location:
 
 ```
 java -cp KUNDERA-BENCHMARK-JAR-LOCATION:PATH-TO-DEPENDENCY-FOLDER/*
 com.yahoo.ycsb.Client -t -db DATABASE-ADAPTER-CLASS-TO-USE
--P PATH-TO-WORKLOAD
--P PATH-TO-PROPERTY-FILE
+-P PATH-TO-WORKLOAD -P PATH-TO-PROPERTY-FILE -s -threads NUMBER-OF-THREAD-TO-USE -PHASE > OUTPUT_FILE
 ```
+where `PHASE` should be `load` for __load__ phase or `t` for __transaction__ phase.
+
 Available adapter classes are:
 
 - `it.polimi.ycsb.database.KunderaAzureTableClient` for  kundera-azure-table extension
