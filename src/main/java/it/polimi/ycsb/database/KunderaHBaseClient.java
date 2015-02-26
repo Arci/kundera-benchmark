@@ -25,7 +25,7 @@ public class KunderaHBaseClient extends DB {
 
     private static final int OK = 0;
     private static final int ERROR = -1;
-    public static final int MAX_ENTITIES = 1;
+    public static final int MAX_ENTITIES = 5;
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("kundera_hbase_pu");
     private SecureRandom random = new SecureRandom();
     private EntityManager em;
