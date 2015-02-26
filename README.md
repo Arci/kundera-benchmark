@@ -17,7 +17,7 @@ The code for the Kundera extensions are available on GitHub:
 - [GAE Datastore extension](https://github.com/Arci/kundera-gae-datastore)
 - [hbase extension](https://github.com/impetus-opensource/Kundera)
 
-you need to download them and install the one for azure table and the one for google datastore locally through maven install since are not available iun any public maven repository.
+You need to download them and install the one for azure table and the one for google datastore locally through maven install since are not available iun any public maven repository.
 Note that the azure table extension tests to run require a reachable storage emulator on Windows so if you do not want to execute test while build run `mvn clean install -DskipTests`.
 Test for datastore extension can be executed without any configuration as they're executed thought google in-memory Datastore stub.
 Since also YCSB is not available in any maven repository, you have also to [download](https://github.com/brianfrankcooper/YCSB/) it and install it locally through maven install.
@@ -44,7 +44,7 @@ Benchmarks for YCSB run in two distinct phases:
 To execute the __load__ phase use the `-load` option, for the __transaction__ phase use the `-t` option.
 
 ##Available datastore
-####low-level API versions
+###low-level API versions
 Those benchmarks are executed through the command:
 
 ```
@@ -59,7 +59,7 @@ Available adapter classes are:
 - `it.polimi.ycsb.database.AzureTableClient` for Azure Table
 - `it.polimi.ycsb.database.DatastoreClient` for GAE Datastore
 
-####Kundera client version
+###Kundera client version
 Those benchmarks are executed similarly to the low-level API version with the only difference that you also need to specify the property file location:
 
 ```
