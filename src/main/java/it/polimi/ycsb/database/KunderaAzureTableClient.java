@@ -55,14 +55,14 @@ public class KunderaAzureTableClient extends DB {
             log.error("table: [" + table + "], key: [" + key + "]");
             return ERROR;
         }
-        if (timeToClearEntityManager()) {
-            em.clear();
-        }
         try {
             final Object o = em.find(AzureTableUser.class, key);
             if (o == null) {
                 log.error("object is null, table: [" + table + "], key: [" + key + "]");
                 return ERROR;
+            }
+            if (timeToClearEntityManager()) {
+                em.clear();
             }
             return OK;
         } catch (Exception e) {

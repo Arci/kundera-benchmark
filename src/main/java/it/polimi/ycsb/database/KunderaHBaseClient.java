@@ -55,14 +55,14 @@ public class KunderaHBaseClient extends DB {
             log.error("table: [" + table + "], key: [" + key + "]");
             return ERROR;
         }
-        if (timeToClearEntityManager()) {
-            em.clear();
-        }
         try {
             final Object o = em.find(HBaseUser.class, key);
             if (o == null) {
                 log.error("object is null, table: [" + table + "], key: [" + key + "]");
                 return ERROR;
+            }
+            if (timeToClearEntityManager()) {
+                em.clear();
             }
             return OK;
         } catch (Exception e) {
