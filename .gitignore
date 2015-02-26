@@ -16,3 +16,6 @@ bin
 ## Maven stuff ##
 target/
 test-output/
+
+## Remote configuration files ##
+*_remote.properties
