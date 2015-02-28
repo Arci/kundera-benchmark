@@ -11,7 +11,6 @@ import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
-import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.HashMap;
@@ -26,18 +25,19 @@ public class HBaseClient extends DB {
 
     public static final int OK = 0;
     public static final int ERROR = -1;
-    private Configuration config;
+    public static final String NODE = "localhost";
+    public static final String PORT = "2181";
+    private static final String ZOOKEEPER_NODE = NODE;
+    private static final String ZOOKEEPER_PORT = PORT;
     public HTableInterface hTable;
     public byte[] columnFamilyBytes;
     private SecureRandom random = new SecureRandom();
 
-    /**
-     * Initialize any state for this DB. Called once per DB instance; there is one DB instance per client thread.
-     */
-    public void init() throws DBException {
-        config = HBaseConfiguration.create();
-        config.set("hbase.zookeeper.quorum", getProperties().getProperty("url"));
-        config.set("hbase.zookeeper.property.clientPort", getProperties().getProperty("port"));
+    public HBaseClient() throws DBException {
+        Configuration config = HBaseConfiguration.create();
+        config.set("hbase.master", NODE + ":" + PORT);
+        config.set("hbase.zookeeper.quorum", ZOOKEEPER_NODE);
+        config.set("hbase.zookeeper.property.clientPort", ZOOKEEPER_PORT);
 
         try {
             HBaseAdmin admin = new HBaseAdmin(config);
@@ -46,21 +46,28 @@ public class HBaseClient extends DB {
                 table.addFamily(new HColumnDescriptor("user"));
                 admin.createTable(table);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new DBException(e);
         }
 
-        int poolSize = 100;
-        HTablePool hTablePool = new HTablePool(config, poolSize);
         columnFamilyBytes = Bytes.toBytes("user");
-        this.hTable = hTablePool.getTable("usertable");
+        this.hTable = new HTablePool(config, 100).getTable("usertable");
+    }
+
+    /**
+     * Initialize any state for this DB. Called once per DB instance; there is one DB instance per client thread.
+     */
+    public void init() throws DBException {
+        /*
+         * connection initialized before to be more comparable with Kundera version
+         * in which connection is created in the ClientFactory initialized before the init() method
+         */
     }
 
     /**
      * Cleanup any state for this DB. Called once per DB instance; there is one DB instance per client thread.
      */
     public void cleanup() throws DBException {
-        config = null;
         hTable = null;
         columnFamilyBytes = null;
     }

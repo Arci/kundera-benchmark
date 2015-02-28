@@ -40,7 +40,6 @@ public class AzureTableClient extends DB {
             if (useEmulator != null && useEmulator.equalsIgnoreCase("true")) {
                 storageConnectionString = "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://127.0.0.1";
             } else {
-
                 String accountName = getProperties().getProperty("account.name");
                 String accountKey = getProperties().getProperty("account.key");
                 String protocol = getProperties().getProperty("protocol");

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientProperties>
+	<datastores>
+		<dataStore>
+			<name>hbase</name>
+			<connection>
+				<properties>
+					<property name="hbase.zookeeper.quorum" value="localhost"></property>
+					<property name="hbase.zookeeper.property.clientPort" value="2181"></property>
+				</properties>
+			</connection>
+		</dataStore>
+	</datastores>
+</clientProperties>

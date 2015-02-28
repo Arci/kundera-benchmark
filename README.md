@@ -100,7 +100,23 @@ The available properties are:
 if `emulator` is set to `true` the remaining properties are ignored.
 
 ###Hbase
-The available properties are:
+The properties must be configured inside the []() file because to be more accurate w.r.t. the Kundera client, connection cannot be done in the `init()` method.
+The properties can be set modifying the constants:
 
-- `url` _required_, the value for `hbase.zookeeper.quorum`
-- `port` _required_, the value for `hbase.zookeeper.property.clientPort`
+- `node`, the master node location
+- `port`, the master node port
+- `zookeeper.node`, the node location for `hbase.zookeeper.quorum`
+- `zookeeper.port`, the node port for `hbase.zookeeper.property.clientPort`
+
+Since property file is not needed for Hbase, it does not need to be specified while [running the benchmarks](#low-level-api-version).
+
+##Persistence.xml configuration
+In the [persistence.xml](https://github.com/Arci/kundera-benchmark/blob/master/src/main/resources/META-INF/persistence.xml) file, each persistence unit must be configured to locate the database to test.
+
+For specific documentation for the extensions please refer to:
+
+- gae-datastore extension [configuration](https://github.com/Arci/kundera-gae-datastore#configuration)
+- azure-table extension [configuration](https://github.com/Arci/kundera-azure-table#configuration)
+- hbase extension [configuration](https://github.com/impetus-opensource/Kundera/wiki/Common-Configuration)
+
+__Note:__ hbase configuration make use of a datastore specific property file [hbase-properties.xml](https://github.com/Arci/kundera-benchmark/blob/master/src/main/resources/hbase-properties.xml) in which can be configured the value for `hbase.zookeeper.quorum`  and `hbase.zookeeper.property.clientPort`.
