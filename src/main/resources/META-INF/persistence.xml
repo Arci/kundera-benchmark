@@ -41,6 +41,7 @@
 			<property name="kundera.port" value="8182"/>
 			-->
 			<property name="kundera.dialect" value="hbase"/>
+			<property name="kundera.client.property" value="hbase-properties.xml"/>
 			<property name="kundera.client.lookup.class" value="com.impetus.client.hbase.HBaseClientFactory"/>
 			<property name="kundera.ddl.auto.prepare" value="update"/>
 		</properties>
