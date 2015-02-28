@@ -1,6 +1,6 @@
 #kundera-benchmark
 
-Benchmarks utilities to test Kundera extension with YCSB.
+Benchmarks utilities to test Kundera extension with [YCSB](https://github.com/brianfrankcooper/YCSB/).
 
 The available YCSB adapters are:
 
@@ -21,7 +21,7 @@ The code for the Kundera extensions are available on GitHub:
 You need to download them and install the one for azure table and the one for google datastore locally through maven install since are not available iun any public maven repository.  
 Note that the azure table extension tests to run require a reachable storage emulator on Windows so if you do not want to execute test while build run `mvn clean install -DskipTests`.
 Test for datastore extension can be executed without any configuration as they're executed thought google in-memory Datastore stub.  
-Since also YCSB is not available in any maven repository, you have also to [download](https://github.com/brianfrankcooper/YCSB/) it and install it locally through maven install.
+Since also YCSB is not available in any maven repository, you have also to download it and install it locally through maven install.
 
 Now all the required dependency for kundera-benchmark should be resolved so is possible to install it with maven:
 
@@ -120,3 +120,13 @@ For specific documentation for the extensions please refer to:
 - hbase extension [configuration](https://github.com/impetus-opensource/Kundera/wiki/Common-Configuration)
 
 __Note:__ hbase configuration make use of a datastore specific property file [hbase-properties.xml](https://github.com/Arci/kundera-benchmark/blob/master/src/main/resources/hbase-properties.xml) in which can be configured the value for `hbase.zookeeper.quorum`  and `hbase.zookeeper.property.clientPort`.
+
+##Read the benchmark results
+Benchmark results are quite verbose and described in the [YCSB documentation](https://github.com/brianfrankcooper/YCSB/wiki/Running-a-Workload#step-6-execute-the-workload).
+
+To rapidly extract the interesting information, a _very simple_ python [script](https://github.com/Arci/kundera-benchmark/blob/master/parse.py) is provided, it can be used as follows:
+
+```
+./parse.py PATH-TO-FILE-TO-PARSE
+```
+the script will create a file named as the input file but with the `_output` suffix containing only the relevant information.
