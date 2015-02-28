@@ -108,7 +108,7 @@ The properties can be set modifying the constants:
 - `zookeeper.node`, the node location for `hbase.zookeeper.quorum`
 - `zookeeper.port`, the node port for `hbase.zookeeper.property.clientPort`
 
-Since property file is not needed for Hbase, it does not need to be specified while [running the benchmarks](#low-level-api-version).
+Since property file is not needed for Hbase, it does not need to be specified while [running the benchmarks](#low-level-api-versions).
 
 ##Persistence.xml configuration
 In the [persistence.xml](https://github.com/Arci/kundera-benchmark/blob/master/src/main/resources/META-INF/persistence.xml) file, each persistence unit must be configured to locate the database to test.
