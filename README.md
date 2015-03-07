@@ -18,7 +18,7 @@ The code for the Kundera extensions are available on GitHub:
 - [GAE Datastore extension](https://github.com/Arci/kundera-gae-datastore)
 - [Hbase extension](https://github.com/impetus-opensource/Kundera)
 
-You need to download them and install the one for azure table and the one for google datastore locally through maven install since are not available iun any public maven repository.  
+You need to download them and install the one for azure table and the one for google datastore locally through maven install since are not available in any public maven repository.  
 Note that the azure table extension tests to run require a reachable storage emulator on Windows so if you do not want to execute test while build run `mvn clean install -DskipTests`.
 Test for datastore extension can be executed without any configuration as they're executed thought google in-memory Datastore stub.  
 Since also YCSB is not available in any maven repository, you have also to download it and install it locally through maven install.
