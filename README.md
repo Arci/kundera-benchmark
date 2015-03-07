@@ -51,7 +51,7 @@ Those benchmarks are executed through the command:
 ```
 java -cp KUNDERA-BENCHMARK-JAR-LOCATION:PATH-TO-DEPENDENCY-FOLDER/*
 com.yahoo.ycsb.Client -t -db DATABASE-ADAPTER-CLASS-TO-USE
--P PATH-TO-WORKLOAD -s -threads NUMBER-OF-THREAD-TO-USE -PHASE > OUTPUT_FILE
+-P PATH-TO-WORKLOAD -P PATH-TO-PROPERTY-FILE -s -threads THREAD-TO-USE -PHASE > OUTPUT_FILE
 ```
 where `PHASE` should be `load` for __load__ phase or `t` for __transaction__ phase.
 
@@ -67,8 +67,7 @@ Those benchmarks are executed similarly to the low-level API version with the on
 ```
 java -cp KUNDERA-BENCHMARK-JAR-LOCATION:PATH-TO-DEPENDENCY-FOLDER/*
 com.yahoo.ycsb.Client -t -db DATABASE-ADAPTER-CLASS-TO-USE
--P PATH-TO-WORKLOAD -P PATH-TO-PROPERTY-FILE
--s -threads NUMBER-OF-THREAD-TO-USE -PHASE > OUTPUT_FILE
+-P PATH-TO-WORKLOAD -s -threads THREAD-TO-USE -PHASE > OUTPUT_FILE
 ```
 where `PHASE` should be `load` for __load__ phase or `t` for __transaction__ phase.
 
