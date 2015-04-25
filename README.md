@@ -120,6 +120,20 @@ For specific documentation for the extensions please refer to:
 
 __Note:__ hbase configuration make use of a datastore specific property file [hbase-properties.xml](https://github.com/Arci/kundera-benchmark/blob/master/src/main/resources/hbase-properties.xml) in which can be configured the value for `hbase.zookeeper.quorum`  and `hbase.zookeeper.property.clientPort`.
 
+##Automate text execution
+To execute tests in an automated way, some shell scripts are provided. On the test machine run the following commands:
+
+- execute `wget https://raw.githubusercontent.com/Arci/kundera-benchmark/master/download.sh`
+- execute the `download.sh` script, this script will:
+  - install git
+  - clone the necessary repositories
+  - install java
+  - install maven
+- the script terminates promting the configuration files that needs to be edited
+- `cd kundera-benchmark`
+- execute `install.sh`, this script will install through maven the required libraires
+- exeute `run-azure.sh` or `run-gae.sh` depending on the database on test
+
 ##Read the benchmark results
 Benchmark results are quite verbose and described in the [YCSB documentation](https://github.com/brianfrankcooper/YCSB/wiki/Running-a-Workload#step-6-execute-the-workload).
 
